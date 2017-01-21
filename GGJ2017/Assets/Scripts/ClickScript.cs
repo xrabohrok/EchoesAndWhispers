@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class ClickScript : MonoBehaviour {
@@ -8,6 +7,9 @@ public class ClickScript : MonoBehaviour {
     public Vector3 clickedLocation { get; set; }
     public GameObject clickedObject { get; set;  }
     public List<string> limitToLayerNamed;
+
+    private bool valid = false;
+    public bool validClicable { get { return valid; } }
 
 	// Use this for initialization
 	void Start () {}
