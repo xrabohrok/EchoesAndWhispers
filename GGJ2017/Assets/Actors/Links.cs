@@ -5,11 +5,9 @@ using UnityEngine;
 [RequireComponent(typeof(SpriteRenderer))]
 public class Links : MonoBehaviour
 {
-    public GameObject personA;
-    public GameObject personB;
+    public Person personA;
+    public Person personB;
     public bool visible;
-
-
     public GameObject drawLinkPiece;
     public float baseScale = 1f;
 
@@ -33,26 +31,33 @@ public class Links : MonoBehaviour
         }
     }
 
-
+    public void recieveTargets(Person a, Person b)
+    {        personA = a;
+        personB = b;
+    }
 
     // Update is called once per frame
     void Update()
     {
-        var placea = personA.transform.position;        var placeb = personB.transform.position;
-        this.transform.position = placea;
 
-        var dist = placeb - placea;
-        for (int i = 0; i < transform.childCount; i++)
-        {            var temp = transform.GetChild(i);
-            temp.transform.localPosition = new Vector3(dist.magnitude/numPieces, 0) * i;
+        if (personA != null && personB != null)        {
+            var placea = personA.transform.position;            var placeb = personB.transform.position;
+
+            this.transform.position = placea;
+
+            var dist = placeb - placea;
+
+            for (int i = 0; i < transform.childCount; i++)
+            {
+                var temp = transform.GetChild(i);
+                temp.transform.localPosition = new Vector3(dist.magnitude/numPieces, 0)*i;
+
+            }
+
+
+            dist.Normalize();
+            float rot_z = Mathf.Atan2(dist.y, dist.x)*Mathf.Rad2Deg;
+            transform.rotation = Quaternion.AngleAxis(rot_z, Vector3.forward);
         }
-      
-        dist.Normalize();        float rot_z = Mathf.Atan2(dist.y, dist.x) * Mathf.Rad2Deg;
-        transform.rotation = Quaternion.AngleAxis(rot_z, Vector3.forward);
-
-        Debug.Log(personA.transform.position);
-
-
-
     }
 }
