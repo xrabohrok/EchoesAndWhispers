@@ -54,7 +54,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   personA: {fileID: 0}
   personB: {fileID: 0}
-  visible: 0
+  Visible: 0
   drawLinkPiece: {fileID: 1787531751753424, guid: 3473386261ea9e7418e2217fd646fc9b,
     type: 2}
   baseScale: 1
