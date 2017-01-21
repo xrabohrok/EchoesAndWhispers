@@ -24,7 +24,19 @@ public class Person : MonoBehaviour
     {
         if (connections == null)
             connections = new List<Link>();
-        connections.Add(link);
+        Person other = this.getOtherPersonFromLink(link);
+        if(!this.isLinkedTo(other))
+            connections.Add(link);
+    }
+
+    public Person getOtherPersonFromLink(Link link)
+    {
+        Person otherPerson;
+        if (link.personA == this)
+            otherPerson = link.personB;
+        else
+            otherPerson = link.personA;
+        return otherPerson;
     }
 
     public bool isLinkedTo(Person person)
@@ -41,24 +53,29 @@ public class Person : MonoBehaviour
 
     public void breakLinkWith(Person person)
     {
-
+        connections.ForEach((Link linkToPerson) => {
+            if (linkToPerson.personA == person || linkToPerson.personB == person)
+            {
+                connections.Remove(linkToPerson);
+            }
+        });
     }
 
     public void breakLink(Link link)
     {
-
+        connections.Remove(link);
     }
 
     public void createLinkWith(Person person)
     {
-        if (connections == null)
-            connections = new List<Link>();
-
+        Link newLink = new Link();
+        newLink.recieveTargets(this, person);
+        this.recieveLink(newLink);
     }
 
     public void die()
     {
-
+        this.alive = false;
     }
 	
 	// Update is called once per frame
