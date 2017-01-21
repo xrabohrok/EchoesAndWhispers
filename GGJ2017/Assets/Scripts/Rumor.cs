@@ -8,9 +8,7 @@ public class Rumor: MonoBehaviour {
     public Link target;
 
 	// Use this for initialization
-	void Start () {
-		
-	}
+	void Start () {	}
 	
 	// Update is called once per frame
 	void Update () {
@@ -38,6 +36,13 @@ public class Rumor: MonoBehaviour {
 
     public void propagate()
     {
+        if(this.infectedPersons.Contains(this.target.personA) || this.infectedPersons.Contains(this.target.personB))
+        {
+            // TODO: Break chance.
+            this.breakLink();
+            // TODO: If the break chance fails, destroy self?
+        }
+
         this.infectedPersons.ForEach((Person infected) =>
         {
             infected.getConnections().ForEach((Link connection) => {
