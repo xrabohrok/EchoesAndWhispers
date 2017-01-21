@@ -18,9 +18,9 @@ public class LinkMaster : MonoBehaviour
 	        var currentPerson = dude.GetComponent<Person>();
 	        var peopleConnections = currentPerson.showStarterLinks();
 
-	        foreach (var person in peopleConnections)
+	        foreach (var manualConnection in peopleConnections)
 	        {
-	            var personComp = person.GetComponent<Person>();
+	            var personComp = manualConnection.person.GetComponent<Person>();
 	            if (personComp != null)
 	            {
                     //check existing links real quick
@@ -28,6 +28,7 @@ public class LinkMaster : MonoBehaviour
 	                {
 	                    var temp = Instantiate(LinkPrefab);
 	                    var tempLink = temp.GetComponent<Link>();
+	                    tempLink.Visible = manualConnection.visible;
 	                    tempLink.recieveTargets(currentPerson, personComp);
                         personComp.recieveLink(tempLink);
                         currentPerson.recieveLink(tempLink);

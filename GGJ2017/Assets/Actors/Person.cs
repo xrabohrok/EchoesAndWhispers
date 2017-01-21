@@ -1,6 +1,8 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 [RequireComponent(typeof(SpriteRenderer))]
 public class Person : MonoBehaviour
@@ -10,7 +12,7 @@ public class Person : MonoBehaviour
     private List<Link> connections;
     public bool alive { get; set; }
 
-    public List<GameObject> peopleConnections; 
+    public List<ManualConnection> peopleConnections; 
 
 	// Use this for initialization
 	void Start ()
@@ -46,7 +48,7 @@ public class Person : MonoBehaviour
         return connections.Exists(p => p.personA == person || p.personB == person);
     }
 
-    public List<GameObject> showStarterLinks()
+    public List<ManualConnection> showStarterLinks()
     {
         return peopleConnections;
     }
@@ -82,4 +84,11 @@ public class Person : MonoBehaviour
 	void Update () {
 		
 	}
+}
+
+[Serializable]
+public class ManualConnection
+{
+    public bool visible;
+    public GameObject person;
 }
