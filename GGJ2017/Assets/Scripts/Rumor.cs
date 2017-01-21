@@ -53,8 +53,8 @@ public class Rumor: MonoBehaviour {
 
     public void breakLink()
     {
-        target.personA.breakLinkWith(target.personB);
-        target.personB.breakLinkWith(target.personA);
+        this.target.personA.breakLinkWith(this.target.personB);
+        this.target.personB.breakLinkWith(this.target.personA);
         this.destroySelf();
     }
 
