@@ -1,47 +1,38 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class ClickScript : MonoBehaviour {
 
     public Vector3 lastGoodPoint { get; set; }
     public Vector3 clickedLocation { get; set; }
-    public GameObject clickedObject { get; set;  }
-    public List<string> limitToLayerNamed;
+    public List<GameObject> clickedObject { get; set;  }
 
     private bool valid = false;
-    public bool validClicable { get { return valid; } }
+    public bool validClickable { get { return valid; } }
 
 	// Use this for initialization
-	void Start () {}
+    void Start()
+    {
+        clickedObject = new List<GameObject>();
+    }
 	
 	// Update is called once per frame
 	void Update () {
-        var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        RaycastHit infoOut;
-
-        var layerMaskNum = 0;
-        var layerMask = 0;
-        foreach(var layername in limitToLayerNamed)
-        {
-            layerMaskNum = LayerMask.NameToLayer(layername);
-            layerMask |= 1 << layerMaskNum;
-
-            // layerMask |= 1 << LayerMask.NameToLayer(layername);
-
-            // Bit shift the 1 to the left (<<) by the number of bits equal to the value of layerMaskNum,
-            // then do an inclusive OR with layerMask (|=) to find all the layers actually included.
-        }
-
-        if (Physics.Raycast(ray, out infoOut, 500, layerMask))
-        {
-            lastGoodPoint = infoOut.point;
-            clickedObject = infoOut.collider.gameObject;
-            clickedLocation = infoOut.point;
-            valid = true;
-        }
-        else
-        {
-            valid = false;
-        }
+        valid = clickedObject.Any();
+	    clickedLocation = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 	}
+
+    public List<GameObject> getAndClearClicked()
+    {
+        var temp = clickedObject;
+        clickedObject = new List<GameObject>();
+        return temp;
+    }
+
+    public void ReportHover(Clickable victim)
+    {
+        clickedObject.Add(victim.gameObject);
+        lastGoodPoint = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+    }
 }

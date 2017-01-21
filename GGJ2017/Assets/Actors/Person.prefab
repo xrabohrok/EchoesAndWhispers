@@ -21,7 +21,9 @@ GameObject:
   - component: {fileID: 4462053450358976}
   - component: {fileID: 212540179853596328}
   - component: {fileID: 114647693774277048}
-  m_Layer: 0
+  - component: {fileID: 61501189968210776}
+  - component: {fileID: 114932901293685150}
+  m_Layer: 8
   m_Name: Person
   m_TagString: person
   m_Icon: {fileID: 0}
@@ -35,12 +37,26 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1794344548930574}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 317, y: 245, z: 0}
+  m_LocalPosition: {x: 721.8954, y: 149.47366, z: 0}
   m_LocalScale: {x: 29.4636, y: 27.839024, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!61 &61501189968210776
+BoxCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1794344548930574}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Size: {x: 2.71, y: 3.3099997}
 --- !u!114 &114647693774277048
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -53,7 +69,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   name: 55.28284
-  peopleConnections: []
+  peopleConnections:
+  - visible: 1
+    person: {fileID: 1794344548930574}
+--- !u!114 &114932901293685150
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1794344548930574}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b8112978435c8174cbca30697523ef21, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  clickMasterTag: clickMaster
 --- !u!212 &212540179853596328
 SpriteRenderer:
   m_ObjectHideFlags: 1

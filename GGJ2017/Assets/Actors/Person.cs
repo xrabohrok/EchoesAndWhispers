@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -84,6 +83,11 @@ public class Person : MonoBehaviour
 	void Update () {
 		
 	}
+
+    public void move(Vector3 newloc)
+    {
+        this.transform.position = new Vector3(newloc.x, newloc.y, 0);
+    }
 }
 
 [Serializable]

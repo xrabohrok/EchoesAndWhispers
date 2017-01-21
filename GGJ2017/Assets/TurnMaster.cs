@@ -9,7 +9,11 @@ public class TurnMaster : MonoBehaviour
 
     private List<TurnPhase> turnParts;
 
-	// Use this for initialization
+    private int currentPhase;
+
+    private bool firstTurn = true;
+
+    // Use this for initialization
 	void Start () {
 		turnParts = new List<TurnPhase>();
 	    foreach (var turnPhase in TurnPhases)
@@ -20,23 +24,40 @@ public class TurnMaster : MonoBehaviour
 	            turnParts.Add(temp);
 	        }
 	    }
+	    currentPhase = 0;
 	}
 	
 	// Update is called once per frame
-	void Update () {
-	    foreach (var turnPhase in turnParts)
+	void Update ()
+	{
+	    if (firstTurn)
 	    {
-	        if (!turnPhase.amIDone())
-	        {
-	            turnPhase.RecieveCameraControl(gameCam.GetComponent<Camera>());
-                turnPhase.DoPhase();
-	        }
+	        turnParts[currentPhase].turnStart();
+	        firstTurn = false;
 	    }
+
+	   var turnPhase = turnParts[currentPhase];
+	    if (!turnPhase.amIDone())
+	    {
+	        turnPhase.RecieveCameraControl(gameCam.GetComponent<Camera>());
+            turnPhase.DoPhase();
+	    }
+	    else
+	    {
+	        currentPhase++;
+	        if (currentPhase >= turnParts.Count)
+	        {
+	            currentPhase = 0;
+	        }
+            turnParts[currentPhase].turnStart();
+	    }
+	    
 	}
 }
 
 public interface TurnPhase
 {
+    void turnStart();
     void DoPhase();
     void RecieveCameraControl(Camera cam);
     bool amIDone();
