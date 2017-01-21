@@ -7,7 +7,8 @@ public class Person : MonoBehaviour
 {
 
     public string name;
-    private List<Links> connections;
+    private List<Link> connections;
+    public bool alive { get; set; }
 
     public List<GameObject> peopleConnections; 
 
@@ -16,13 +17,13 @@ public class Person : MonoBehaviour
 	{
 	    name = (Random.value*100).ToString();
         if(connections == null)
-            connections = new List<Links>();
+            connections = new List<Link>();
     }
 
-    public void recieveLink(Links link)
+    public void recieveLink(Link link)
     {
         if (connections == null)
-            connections = new List<Links>();
+            connections = new List<Link>();
         connections.Add(link);
     }
 
@@ -36,6 +37,28 @@ public class Person : MonoBehaviour
     public List<GameObject> showStarterLinks()
     {
         return peopleConnections;
+    }
+
+    public void breakLinkWith(Person person)
+    {
+
+    }
+
+    public void breakLink(Link link)
+    {
+
+    }
+
+    public void createLinkWith(Person person)
+    {
+        if (connections == null)
+            connections = new List<Link>();
+
+    }
+
+    public void die()
+    {
+
     }
 	
 	// Update is called once per frame
