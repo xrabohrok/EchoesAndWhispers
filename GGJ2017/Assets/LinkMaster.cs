@@ -27,7 +27,7 @@ public class LinkMaster : MonoBehaviour
                     if (!personComp.isLinkedTo(currentPerson))
 	                {
 	                    var temp = Instantiate(LinkPrefab);
-	                    var tempLink = temp.GetComponent<Links>();
+	                    var tempLink = temp.GetComponent<Link>();
 	                    tempLink.recieveTargets(currentPerson, personComp);
                         personComp.recieveLink(tempLink);
                         currentPerson.recieveLink(tempLink);
