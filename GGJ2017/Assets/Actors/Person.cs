@@ -57,7 +57,7 @@ public class Person : MonoBehaviour
         connections.ForEach((Link linkToPerson) => {
             if (linkToPerson.personA == person || linkToPerson.personB == person)
             {
-                connections.Remove(linkToPerson);
+                this.connections.Remove(linkToPerson);
             }
         });
     }

@@ -50,4 +50,22 @@ public class Rumor: MonoBehaviour {
             });
         });
     }
+
+    public void breakLink()
+    {
+        target.personA.breakLinkWith(target.personB);
+        target.personB.breakLinkWith(target.personA);
+        this.destroySelf();
+    }
+
+    public void destroySelf()
+    {
+        this.infectedPersons.ForEach((Person person) =>
+        {
+            person.rumors.Remove(this);
+        });
+
+        this.infectedPersons = new List<Person>();
+        this.target = null;
+    }
 }
