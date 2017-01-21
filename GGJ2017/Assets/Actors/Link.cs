@@ -36,6 +36,11 @@ public class Link : MonoBehaviour
         personB = b;
     }
 
+    public bool contains(Person person)
+    {
+        return (personA == person || personB == person);
+    }
+
     // Update is called once per frame
     void Update()
     {        if (personA != null && personB != null)
