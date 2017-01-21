@@ -18,14 +18,19 @@ public class cameraScript : MonoBehaviour {
 public void focusPerson(Transform coordinates)
 {
     //TODO:Move network to person, center left person
-
-
+    coordinates.position= coordinates.position + new Vector3(20.0f, 0.0f, 0.0f);
+    Camera.main.transform.LookAt(coordinates);
+    //TODO:Set zoom
+    
 }
 
 public void showNetwork()
 {
     //TODO: Zoom out, character on left investigators on right
 
+    Vector3 center = new Vector3();
+    Camera.main.ScreenToWorldPoint(center);
+    Camera.main.orthographicSize = fullMapOut;
 }
 
 public void cameraDrag()
@@ -43,6 +48,7 @@ public void cameraZoom(object input)
 
 public void focusDual(Transform one, Transform two)
 {
-    //TODO: Implement  zooming on two targets
+    //TODO: Implement zooming on two targets
+
 
 }
