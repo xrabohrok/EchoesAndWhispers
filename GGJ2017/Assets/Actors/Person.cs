@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
 [RequireComponent(typeof(SpriteRenderer))]
 public class Person : MonoBehaviour
 {
+    public static List<string> boyNames;
+    private static List<string> girlNames;
 
     public string name;
     private List<Link> connections;
@@ -17,7 +20,20 @@ public class Person : MonoBehaviour
 	// Use this for initialization
 	void Start ()
 	{
-	    name = (Random.value*100).ToString();
+	    if (boyNames == null)
+	    {
+	        var rawBoyNames = Resources.Load<TextAsset>("boy_names");
+	        boyNames = rawBoyNames.text.Split('\n').ToList();
+	    }
+
+        if (girlNames == null)
+        {
+            var rawGirlNames = Resources.Load<TextAsset>("girl_names");
+            boyNames = rawGirlNames.text.Split('\n').ToList();
+        }
+
+        name =  boyNames[Mathf.FloorToInt((Random.value * boyNames.Count))];
+
         if(connections == null)
             connections = new List<Link>();
     }
