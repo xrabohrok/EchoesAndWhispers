@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: bd93cfadc30a4b5499aa33abd12884b9
-timeCreated: 1485111101
+timeCreated: 1485112325
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -28,6 +28,7 @@ TextureImporter:
     21300042: X
     21300044: Investigators
     21300046: paper2
+    21300048: paper3
   serializedVersion: 4
   mipmaps:
     mipMapMode: 0
@@ -400,6 +401,19 @@ TextureImporter:
         y: 514
         width: 112
         height: 112
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: paper3
+      rect:
+        serializedVersion: 2
+        x: 284
+        y: 627
+        width: 114
+        height: 115
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
