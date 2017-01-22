@@ -11,13 +11,15 @@ public class ButtonScript : MonoBehaviour {
     public Button StartGame;
     public Button Credits;
     public Button ExitGame;
+    public Button ReturnToMain;
 
 	// Use this for initialization
 	void Start () {
         Menu = Menu.GetComponent<Canvas>();
         StartGame = StartGame.GetComponent<Button>();
         Credits = Credits.GetComponent<Button>();
-            ExitGame= ExitGame.GetComponent<Button>();
+        ExitGame= ExitGame.GetComponent<Button>();
+        ReturnToMain = ReturnToMain.GetComponent<Button>();
 
     }
 	
@@ -28,7 +30,7 @@ public class ButtonScript : MonoBehaviour {
 
    public void StartLevel()
     {
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene(1);
 
     }
 
@@ -40,7 +42,13 @@ public class ButtonScript : MonoBehaviour {
     
     public void LoadCredits()
     {
-        SceneManager.LoadScene("Credits");
+        SceneManager.LoadScene(2);
 
     }
+
+    public void ToMain()
+    {
+        SceneManager.LoadScene(0);
+            
+            }
 }
