@@ -1882,6 +1882,11 @@ Prefab:
       propertyPath: m_Name
       value: Person (12)
       objectReference: {fileID: 0}
+    - target: {fileID: 114647693774277048, guid: e1deb6f1b9249944482d8bfd2b440983,
+        type: 2}
+      propertyPath: peopleConnections.Array.data[0].person
+      value: 
+      objectReference: {fileID: 1442467408}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: e1deb6f1b9249944482d8bfd2b440983, type: 2}
   m_IsPrefabParent: 0

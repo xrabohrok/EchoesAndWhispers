@@ -58,7 +58,7 @@ MonoBehaviour:
   drawLinkPiece: {fileID: 1787531751753424, guid: 3473386261ea9e7418e2217fd646fc9b,
     type: 2}
   baseScale: 1
-  numPieces: 30
+  numPieces: 60
 --- !u!212 &212292359553567974
 SpriteRenderer:
   m_ObjectHideFlags: 1
