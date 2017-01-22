@@ -126,6 +126,10 @@ public class PlayerPhase : MonoBehaviour, TurnPhase
             targetZoom = 0;
         else if (targetZoom >= 100)
             targetZoom = 100;
+        var progress = targetZoom / 100;
+
+        camera.orthographicSize = Mathf.Lerp(minZoom, maxZoom, progress);
+
 
         processRumors();
 
@@ -151,11 +155,12 @@ public class PlayerPhase : MonoBehaviour, TurnPhase
 
                 rumorModePhase++;
             }
-            else if (rumorTarget == null)
+            else if (rumorTarget == null && personality.gameObject != rumorSource)
             {
                 Debug.Log("chose target");
                 rumorTarget = personality.gameObject;
                 rumorModePhase++;
+                actionsLeft--;
             }
         }
     }
@@ -217,6 +222,7 @@ public class PlayerPhase : MonoBehaviour, TurnPhase
         actionsLeft = actions;
         Cursor.visible = true;
         rumorModeLocked = false;
+        actionsLeft = actions;
     }
 
     public void informOfRealDad(TurnMaster master)
