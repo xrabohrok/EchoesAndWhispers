@@ -26,7 +26,6 @@ public class PlayerPhase : MonoBehaviour, TurnPhase
     private float targetZoom;
 
     private bool panning = false;
-    private Vector2 mouseanchor;
     private Vector2 mouseWorldLast;
 
     private float zDepth = -100;
@@ -86,7 +85,6 @@ public class PlayerPhase : MonoBehaviour, TurnPhase
             {
                 //pan cam
                 var mouseWorldPoint = camera.ScreenToWorldPoint(Input.mousePosition);
-                mouseanchor = mouseWorldPoint;
                 panning = true;
             }
         }

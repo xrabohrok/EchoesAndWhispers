@@ -16,4 +16,5 @@ class Agent : MonoBehaviour
     }
 
     public Person Target { get; set; }
+
 }
