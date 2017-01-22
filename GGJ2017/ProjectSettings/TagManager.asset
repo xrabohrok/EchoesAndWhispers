@@ -6,6 +6,7 @@ TagManager:
   tags:
   - person
   - clickMaster
+  - connection
   layers:
   - Default
   - TransparentFX

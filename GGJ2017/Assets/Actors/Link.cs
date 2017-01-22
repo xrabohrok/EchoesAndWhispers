@@ -21,15 +21,22 @@ public class Link : MonoBehaviour
     void Start()
     {
         for (int i = 0; i < numPieces; i++)
+
         {
+
             var temp = GameObject.Instantiate(drawLinkPiece);
 
+
             temp.transform.position = transform.position;
+
             temp.transform.localPosition = new Vector3(LinkWidth, 0) * i;
+
             temp.transform.parent = this.gameObject.transform;
 
+            temp.SetActive(Visible);
         }
-    }
+        wasVisible = Visible;
+    }
 
     public void recieveTargets(Person a, Person b)
     {        personA = a;
@@ -83,19 +90,11 @@ public class Link : MonoBehaviour
             transform.rotation = Quaternion.AngleAxis(rot_z, Vector3.forward);
 
         }
-        if (Visible && !wasVisible)        {
+        if (Visible != wasVisible)        {
             for (int i = 0; i < transform.childCount; i++)
             {                var temp = transform.GetChild(i);
-                temp.gameObject.SetActive(true);            }
+                temp.gameObject.SetActive(Visible);            }
         }
-        if (!Visible && wasVisible)
-        {
-            for (int i = 0; i < transform.childCount; i++)
-            {
-                var temp = transform.GetChild(i);
-                temp.gameObject.SetActive(false);
-            }
-        }
 
         wasVisible = Visible;
 

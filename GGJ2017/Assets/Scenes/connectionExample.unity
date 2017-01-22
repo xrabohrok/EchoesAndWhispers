@@ -96,6 +96,17 @@ GameObject:
   m_PrefabParentObject: {fileID: 1081219162924624, guid: 9f594a79207a15b498bc7834e40d3d29,
     type: 2}
   m_PrefabInternal: {fileID: 1610477261}
+--- !u!114 &57635795
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 57635792}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 891500c305127924c80e7aef0de7b502, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &131685560
 GameObject:
   m_ObjectHideFlags: 0
@@ -785,7 +796,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 458093091}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1654576184}
+        m_MethodName: startHobNob
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &458093091
@@ -875,7 +897,7 @@ Prefab:
     - target: {fileID: 114647693774277048, guid: e1deb6f1b9249944482d8bfd2b440983,
         type: 2}
       propertyPath: peopleConnections.Array.data[0].visible
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: e1deb6f1b9249944482d8bfd2b440983, type: 2}
@@ -920,12 +942,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d56f9bd2ad67e2b4e8ca50f93ff7cbb8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startCam: {x: 0, y: 0, z: 0}
+  endCam: {x: 0, y: 0, z: 0}
   Agent: {fileID: 57635792}
   FirstPerson: {fileID: 1891043940}
-  zoomInScale: 0
-  globalScale: 0
-  camSwooshSpeed: 0
+  zoomInScale: 200
+  globalScale: 700
+  camSwooshSpeed: 0.46
 --- !u!1 &682481024
 GameObject:
   m_ObjectHideFlags: 0
@@ -1141,6 +1163,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TurnPhases:
   - {fileID: 1654576182}
+  - {fileID: 576158728}
   gameCam: {fileID: 1185139482}
 --- !u!4 &1046907539
 Transform:
@@ -1297,6 +1320,11 @@ Prefab:
       propertyPath: peopleConnections.Array.data[1].person
       value: 
       objectReference: {fileID: 712478152}
+    - target: {fileID: 114647693774277048, guid: e1deb6f1b9249944482d8bfd2b440983,
+        type: 2}
+      propertyPath: peopleConnections.Array.data[0].visible
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: e1deb6f1b9249944482d8bfd2b440983, type: 2}
   m_IsPrefabParent: 0
@@ -1546,6 +1574,7 @@ MonoBehaviour:
     type: 2}
   LinkIndicationPrefab: {fileID: 1006697485243934, guid: 155cff4ee138d7e439cc6fcef586311e,
     type: 2}
+  hobnobChance: 80
 --- !u!114 &1654576185
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1604,6 +1633,11 @@ Prefab:
     - target: {fileID: 1794344548930574, guid: e1deb6f1b9249944482d8bfd2b440983, type: 2}
       propertyPath: m_Name
       value: Person (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 114647693774277048, guid: e1deb6f1b9249944482d8bfd2b440983,
+        type: 2}
+      propertyPath: peopleConnections.Array.data[0].visible
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: e1deb6f1b9249944482d8bfd2b440983, type: 2}
@@ -1760,6 +1794,11 @@ Prefab:
       propertyPath: peopleConnections.Array.data[1].person
       value: 
       objectReference: {fileID: 712478152}
+    - target: {fileID: 114647693774277048, guid: e1deb6f1b9249944482d8bfd2b440983,
+        type: 2}
+      propertyPath: peopleConnections.Array.data[0].visible
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: e1deb6f1b9249944482d8bfd2b440983, type: 2}
   m_IsPrefabParent: 0

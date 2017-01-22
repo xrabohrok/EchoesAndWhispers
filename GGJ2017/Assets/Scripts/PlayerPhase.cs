@@ -42,6 +42,7 @@ public class PlayerPhase : MonoBehaviour, TurnPhase
     private GameObject currentLinkIndication;
     private TurnMaster keeper;
     private bool hobnobMode;
+    public float hobnobChance = 60;
 
 
     // Use this for initialization
@@ -136,6 +137,17 @@ public class PlayerPhase : MonoBehaviour, TurnPhase
         processRumors();
         if (hobnobMode)
         {
+            var conns = GameObject.FindGameObjectsWithTag("connection");
+
+            foreach (var conn in conns)
+            {
+                var link = conn.GetComponent<Link>();
+                if (Random.value * 100 > hobnobChance)
+                {
+                    link.Visible = true;
+                }
+            }
+
             actionsLeft--;
             Debug.Log(actionsLeft);
             hobnobMode = false;
