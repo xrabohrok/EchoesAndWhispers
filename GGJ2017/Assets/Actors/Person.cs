@@ -1,29 +1,44 @@
-﻿using System.Collections;
+﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 [RequireComponent(typeof(SpriteRenderer))]
 public class Person : MonoBehaviour
 {
 
     public string name;
-    private List<Links> connections;
+    private List<Link> connections;
+    public bool alive { get; set; }
+    public List<Rumor> rumors;
 
-    public List<GameObject> peopleConnections; 
+    public List<ManualConnection> peopleConnections; 
 
 	// Use this for initialization
 	void Start ()
 	{
 	    name = (Random.value*100).ToString();
         if(connections == null)
-            connections = new List<Links>();
+            connections = new List<Link>();
     }
 
-    public void recieveLink(Links link)
+    public void recieveLink(Link link)
     {
         if (connections == null)
-            connections = new List<Links>();
-        connections.Add(link);
+            connections = new List<Link>();
+        Person other = this.getOtherPersonFromLink(link);
+        if(!this.isLinkedTo(other))
+            connections.Add(link);
+    }
+
+    public Person getOtherPersonFromLink(Link link)
+    {
+        Person otherPerson;
+        if (link.personA == this)
+            otherPerson = link.personB;
+        else
+            otherPerson = link.personA;
+        return otherPerson;
     }
 
     public bool isLinkedTo(Person person)
@@ -33,13 +48,68 @@ public class Person : MonoBehaviour
         return connections.Exists(p => p.personA == person || p.personB == person);
     }
 
-    public List<GameObject> showStarterLinks()
+    public List<ManualConnection> showStarterLinks()
     {
         return peopleConnections;
+    }
+
+    public void breakLinkWith(Person person)
+    {
+        connections.ForEach((Link linkToPerson) => {
+            if (linkToPerson.personA == person || linkToPerson.personB == person)
+            {
+                this.connections.Remove(linkToPerson);
+            }
+        });
+    }
+
+    public void breakLink(Link link)
+    {
+        connections.Remove(link);
+    }
+
+    public void createLinkWith(Person person)
+    {
+        Link newLink = new Link();
+        newLink.recieveTargets(this, person);
+        this.recieveLink(newLink);
+    }
+
+    public void die()
+    {
+        this.alive = false;
+    }
+
+    public void infect(Rumor rumor)
+    {
+        this.rumors.Add(rumor);
+        // TODO: Any other rumor actions.
+    }
+
+    public bool isInfectedByRumor(Rumor rumor)
+    {
+        return this.rumors.Contains(rumor);
+    }
+
+    public List<Link> getConnections()
+    {
+        return this.connections;
     }
 	
 	// Update is called once per frame
 	void Update () {
 		
 	}
+
+    public void move(Vector3 newloc)
+    {
+        this.transform.position = new Vector3(newloc.x, newloc.y, 0);
+    }
+}
+
+[Serializable]
+public class ManualConnection
+{
+    public bool visible;
+    public GameObject person;
 }

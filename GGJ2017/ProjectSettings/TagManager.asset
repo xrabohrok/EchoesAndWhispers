@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - person
+  - clickMaster
   layers:
   - Default
   - TransparentFX
@@ -14,7 +15,7 @@ TagManager:
   - UI
   - 
   - 
-  - 
+  - clickable
   - 
   - 
   - 
@@ -44,4 +45,10 @@ TagManager:
     locked: 0
   - name: Background
     uniqueID: 1096393925
+    locked: 0
+  - name: links
+    uniqueID: 2258972865
+    locked: 0
+  - name: people
+    uniqueID: 424927591
     locked: 0

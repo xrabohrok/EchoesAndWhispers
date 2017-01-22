@@ -3,7 +3,7 @@
 using UnityEngine;
 
 [RequireComponent(typeof(SpriteRenderer))]
-public class Links : MonoBehaviour
+public class Link : MonoBehaviour
 {
     public Person personA;
     public Person personB;
@@ -35,6 +35,11 @@ public class Links : MonoBehaviour
     {        personA = a;
         personB = b;
     }
+
+    public bool contains(Person person)
+    {
+        return (personA == person || personB == person);
+    }
 
     // Update is called once per frame
     void Update()
