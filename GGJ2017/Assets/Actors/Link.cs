@@ -37,10 +37,15 @@ public class Link : MonoBehaviour
     }
 
     public void recieveTargets(Person a)
-    {        personA = a;
-        mouseLinked = true;
-        Visible = true;
+    {
+        personA = a;
+        mouseLinked = true;        Visible = true;
     }
+
+    public void passToPersonTarget(Person b)
+    {
+        personB = b;
+        mouseLinked = false;    }
 
     public bool contains(Person person)
     {

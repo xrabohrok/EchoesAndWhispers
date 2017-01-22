@@ -32,6 +32,7 @@ public class PlayerPhase : MonoBehaviour, TurnPhase
     private float zDepth = -100;
 
     private bool rumorMode;
+    private bool rumorModeLocked;
     private GameObject rumorSource;
     private GameObject rumorTarget;
     private int rumorModePhase = 0;
@@ -39,6 +40,7 @@ public class PlayerPhase : MonoBehaviour, TurnPhase
     private GameObject rumorIndicatorTarget;
     public GameObject LinkIndicationPrefab;
     private GameObject currentLinkIndication;
+    private TurnMaster keeper;
 
 
     // Use this for initialization
@@ -69,29 +71,8 @@ public class PlayerPhase : MonoBehaviour, TurnPhase
                 var personality = thing.GetComponent<Person>();
                 if (personality != null && (Input.GetMouseButtonDown(0)))
                 {
-                    if (rumorMode)
-                    {
-                        if (rumorSource == null)
-                        {
-                            Debug.Log("chose source");
-                            rumorSource = personality.gameObject;
+                    processRumorMouseInput(personality);
 
-                            currentLinkIndication = Instantiate(LinkIndicationPrefab);
-                            currentLinkIndication.SetActive(true);
-                            var temp = currentLinkIndication.GetComponent<Link>();
-                            temp.recieveTargets(personality);
-
-                            rumorModePhase++;
-                        }
-                        else if (rumorTarget == null)
-                        {
-                            Debug.Log("chose target");
-                            rumorTarget = personality.gameObject;
-                            rumorModePhase++;
-                        }
-                    }
-
-                    //the only legit thing right now is to click/drag
                     draggedThing = personality;
                 }
             }
@@ -111,9 +92,9 @@ public class PlayerPhase : MonoBehaviour, TurnPhase
         {
             var currentMouseCam = camera.ScreenToWorldPoint(Input.mousePosition);
             currentMouseCam = new Vector3(currentMouseCam.x, currentMouseCam.y, 0);
-            camera.transform.position -= currentMouseCam - new Vector3( mouseWorldLast.x, mouseWorldLast.y, 0);
+            camera.transform.position -= currentMouseCam - new Vector3(mouseWorldLast.x, mouseWorldLast.y, 0);
 
-            if(camera.transform.position.x > maxPan_right)
+            if (camera.transform.position.x > maxPan_right)
                 camera.transform.position = new Vector3(maxPan_right, camera.transform.position.y, zDepth);
             if (camera.transform.position.x < maxPan_left)
                 camera.transform.position = new Vector3(maxPan_left, camera.transform.position.y, zDepth);
@@ -146,35 +127,65 @@ public class PlayerPhase : MonoBehaviour, TurnPhase
         else if (targetZoom >= 100)
             targetZoom = 100;
 
-        var progress = targetZoom / 100;
+        processRumors();
 
+
+
+        //process actions
+        mouseWorldLast = camera.ScreenToWorldPoint(Input.mousePosition);
+    }
+
+    private void processRumorMouseInput(Person personality)
+    {
         if (rumorMode)
         {
-            if( Input.GetMouseButtonUp(0))
+            if (rumorSource == null)
+            {
+                Debug.Log("chose source");
+                rumorSource = personality.gameObject;
+
+                currentLinkIndication = Instantiate(LinkIndicationPrefab);
+                currentLinkIndication.SetActive(true);
+                var temp = currentLinkIndication.GetComponent<Link>();
+                temp.recieveTargets(personality);
+
+                rumorModePhase++;
+            }
+            else if (rumorTarget == null)
+            {
+                Debug.Log("chose target");
+                rumorTarget = personality.gameObject;
+                rumorModePhase++;
+            }
+        }
+    }
+
+    private void processRumors()
+    {
+        if (rumorMode)
+        {
+            if (Input.GetMouseButtonUp(0))
             {
                 if (rumorModePhase == 1)
                 {
                     rumorIndicatorSource = Instantiate(sourceReticule, rumorSource.transform.position, this.transform.rotation);
+                    rumorIndicatorSource.transform.parent = rumorSource.transform;
                 }
                 if (rumorModePhase == 2)
                 {
-                    rumorIndicatorSource = Instantiate(targetReticule, rumorSource.transform.position, this.transform.rotation);
-                    Destroy(currentLinkIndication);
-                    Destroy(rumorIndicatorSource);
-                    Destroy(rumorIndicatorTarget);
+                    rumorIndicatorTarget = Instantiate(targetReticule, rumorTarget.transform.position, this.transform.rotation);
+                    currentLinkIndication.GetComponent<Link>().passToPersonTarget(rumorTarget.GetComponent<Person>());
+                    rumorIndicatorTarget.transform.parent = rumorTarget.transform;
 
                     //start rumor
+                    keeper.recieveTurnAction(new TurnAction(0, rumorSource.GetComponent<Person>(), rumorTarget.GetComponent<Person>()));
 
                     rumorModePhase = 0;
                     rumorMode = false;
+                    rumorModeLocked = true;
                 }
             }
         }
-
-        
-
-        //process actions
-        mouseWorldLast = camera.ScreenToWorldPoint(Input.mousePosition);
     }
 
     public void RecieveCameraControl(Camera cam)
@@ -194,12 +205,22 @@ public class PlayerPhase : MonoBehaviour, TurnPhase
 
     public void startRumorMode()
     {
-        rumorMode = true;
+        if(!rumorModeLocked)
+        {
+            rumorMode = true;
+            rumorModePhase = 0;
+        }
     }
 
     public void turnStart()
     {
         actionsLeft = actions;
         Cursor.visible = true;
+        rumorModeLocked = false;
+    }
+
+    public void informOfRealDad(TurnMaster master)
+    {
+        keeper = master;
     }
 }
