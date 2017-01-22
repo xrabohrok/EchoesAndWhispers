@@ -18,7 +18,7 @@ public class Clickable : MonoBehaviour
 	// Update is called once per frame
 	void Update () {
 
-        if(collider.OverlapPoint(Camera.main.ScreenToWorldPoint( Input.mousePosition)))
+        if(Cursor.visible && collider.OverlapPoint(Camera.main.ScreenToWorldPoint( Input.mousePosition)))
 	    {
             clickMaster.ReportHover(this);
         }

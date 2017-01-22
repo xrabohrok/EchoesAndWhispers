@@ -19,8 +19,11 @@ public class ClickScript : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        valid = clickedObject.Any();
-	    clickedLocation = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        if(Cursor.visible)
+        {
+            valid = clickedObject.Any();
+            clickedLocation = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        }
 	}
 
     public List<GameObject> getAndClearClicked()

@@ -41,6 +41,7 @@ public class PlayerPhase : MonoBehaviour, TurnPhase
     public GameObject LinkIndicationPrefab;
     private GameObject currentLinkIndication;
     private TurnMaster keeper;
+    private bool hobnobMode;
 
 
     // Use this for initialization
@@ -49,6 +50,7 @@ public class PlayerPhase : MonoBehaviour, TurnPhase
 	    clickControl = GetComponent<ClickScript>();
 	    targetZoom = .5f;
 	    rumorMode = false;
+	    hobnobMode = false;
 	}
 	
 	// Update is called once per frame
@@ -132,7 +134,13 @@ public class PlayerPhase : MonoBehaviour, TurnPhase
 
 
         processRumors();
+        if (hobnobMode)
+        {
+            actionsLeft--;
+            Debug.Log(actionsLeft);
+            hobnobMode = false;
 
+        }
 
 
         //process actions
@@ -161,6 +169,7 @@ public class PlayerPhase : MonoBehaviour, TurnPhase
                 rumorTarget = personality.gameObject;
                 rumorModePhase++;
                 actionsLeft--;
+                Debug.Log(actionsLeft);
             }
         }
     }
@@ -217,12 +226,19 @@ public class PlayerPhase : MonoBehaviour, TurnPhase
         }
     }
 
+    public void startHobNob()
+    {
+        hobnobMode = true;
+        rumorMode = false;
+    }
+
     public void turnStart()
     {
         actionsLeft = actions;
         Cursor.visible = true;
         rumorModeLocked = false;
         actionsLeft = actions;
+        Debug.Log("start player turn");
     }
 
     public void informOfRealDad(TurnMaster master)

@@ -91,6 +91,11 @@ NavMeshSettings:
     cellSize: 0.16666667
     accuratePlacement: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &57635792 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1081219162924624, guid: 9f594a79207a15b498bc7834e40d3d29,
+    type: 2}
+  m_PrefabInternal: {fileID: 1610477261}
 --- !u!1 &131685560
 GameObject:
   m_ObjectHideFlags: 0
@@ -875,6 +880,52 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: e1deb6f1b9249944482d8bfd2b440983, type: 2}
   m_IsPrefabParent: 0
+--- !u!1 &576158728
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 576158729}
+  - component: {fileID: 576158730}
+  m_Layer: 0
+  m_Name: AgentTurn
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &576158729
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 576158728}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1046907539}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &576158730
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 576158728}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d56f9bd2ad67e2b4e8ca50f93ff7cbb8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startCam: {x: 0, y: 0, z: 0}
+  Agent: {fileID: 57635792}
+  FirstPerson: {fileID: 1891043940}
+  zoomInScale: 0
+  globalScale: 0
+  camSwooshSpeed: 0
 --- !u!1 &682481024
 GameObject:
   m_ObjectHideFlags: 0
@@ -1102,6 +1153,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1654576183}
+  - {fileID: 576158729}
   m_Father: {fileID: 0}
   m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1406,11 +1458,11 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4828048138278512, guid: 9f594a79207a15b498bc7834e40d3d29, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 473.68826
+      value: 873
       objectReference: {fileID: 0}
     - target: {fileID: 4828048138278512, guid: 9f594a79207a15b498bc7834e40d3d29, type: 2}
       propertyPath: m_LocalPosition.y
-      value: -138.81483
+      value: 1046
       objectReference: {fileID: 0}
     - target: {fileID: 4828048138278512, guid: 9f594a79207a15b498bc7834e40d3d29, type: 2}
       propertyPath: m_LocalPosition.z

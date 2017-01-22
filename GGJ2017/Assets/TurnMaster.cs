@@ -33,14 +33,15 @@ public class TurnMaster : MonoBehaviour
 	    if (firstTurn)
 	    {
             turnParts[currentPhase].informOfRealDad(this);
-	        turnParts[currentPhase].turnStart();
+            turnParts[currentPhase].RecieveCameraControl(gameCam.GetComponent<Camera>());
+
+            turnParts[currentPhase].turnStart();
 	        firstTurn = false;
 	    }
 
 	   var turnPhase = turnParts[currentPhase];
 	    if (!turnPhase.amIDone())
 	    {
-	        turnPhase.RecieveCameraControl(gameCam.GetComponent<Camera>());
             turnPhase.DoPhase();
 	    }
 	    else
@@ -50,6 +51,7 @@ public class TurnMaster : MonoBehaviour
 	        {
 	            currentPhase = 0;
 	        }
+            turnParts[currentPhase].RecieveCameraControl(gameCam.GetComponent<Camera>());
             turnParts[currentPhase].turnStart();
 	    }
 	    

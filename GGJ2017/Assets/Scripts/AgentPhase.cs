@@ -6,7 +6,8 @@ public class AgentPhase : MonoBehaviour, TurnPhase
 {
     private Camera agentCam;
     private int phase;
-    public Vector3 startCam;
+    private Vector3 startCam;
+    public Vector3 endCam;
     public GameObject Agent;
     private Agent AgentComp;
     public GameObject FirstPerson;
@@ -35,9 +36,9 @@ public class AgentPhase : MonoBehaviour, TurnPhase
 
     public void turnStart()
     {
-        startCam = agentCam.transform.position;
-        startCamScale = agentCam.orthographicSize;
+        Debug.Log("start Agent turn");
         agentStart = Agent.transform.position;
+        amDone = false;
     }
 
     public void DoPhase()
@@ -45,7 +46,8 @@ public class AgentPhase : MonoBehaviour, TurnPhase
         //move cam to agent
         if (phase == 0)
         {
-            agentCam.transform.position = Vector3.Lerp(startCam, Agent.transform.position, camSwoosh);
+            agentCam.transform.position = Vector2.Lerp(startCam, Agent.transform.position, camSwoosh);
+            agentCam.transform.position = new Vector3(agentCam.transform.position.x, agentCam.transform.position.y, -10);
             agentCam.orthographicSize = Mathf.Lerp(startCamScale, zoomInScale, camSwoosh);
 
             camSwoosh += camSwooshSpeed;
@@ -68,15 +70,18 @@ public class AgentPhase : MonoBehaviour, TurnPhase
                 //determine other person here
             }
 
-            Agent.transform.position = Vector3.Lerp(agentStart, AgentComp.Target.transform.position, camSwoosh);
+            Agent.transform.position = Vector2.Lerp(agentStart, AgentComp.Target.transform.position, camSwoosh);
             agentCam.transform.position = Agent.transform.position;
+            agentCam.transform.position = new Vector3(agentCam.transform.position.x, agentCam.transform.position.y, -10);
 
-            camSwoosh += camSwooshSpeed;
+
+            camSwoosh += camSwooshSpeed * Time.deltaTime;
 
             if (camSwoosh >= .9f)
             {
                 camSwoosh = 0;
                 phase++;
+                amDone = true;
             }
 
         }
@@ -87,6 +92,8 @@ public class AgentPhase : MonoBehaviour, TurnPhase
     public void RecieveCameraControl(Camera cam)
     {
         agentCam = cam;
+        startCam = agentCam.transform.position;
+        startCamScale = agentCam.orthographicSize;
     }
 
     public void informOfRealDad(TurnMaster master)
