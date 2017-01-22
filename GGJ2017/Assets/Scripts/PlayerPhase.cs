@@ -14,6 +14,9 @@ public class PlayerPhase : MonoBehaviour, TurnPhase
     public float maxPan_up = 800;
     public float maxPan_down = -200;
 
+    public GameObject targetReticule;
+    public GameObject sourceReticule;
+
     private int actionsLeft = 2;
     private ClickScript clickControl;
 
@@ -28,12 +31,22 @@ public class PlayerPhase : MonoBehaviour, TurnPhase
 
     private float zDepth = -100;
 
+    private bool rumorMode;
+    private GameObject rumorSource;
+    private GameObject rumorTarget;
+    private int rumorModePhase = 0;
+    private GameObject rumorIndicatorSource;
+    private GameObject rumorIndicatorTarget;
+    public GameObject LinkIndicationPrefab;
+    private GameObject currentLinkIndication;
+
 
     // Use this for initialization
 	void Start ()
 	{
 	    clickControl = GetComponent<ClickScript>();
 	    targetZoom = .5f;
+	    rumorMode = false;
 	}
 	
 	// Update is called once per frame
@@ -56,6 +69,28 @@ public class PlayerPhase : MonoBehaviour, TurnPhase
                 var personality = thing.GetComponent<Person>();
                 if (personality != null && (Input.GetMouseButtonDown(0)))
                 {
+                    if (rumorMode)
+                    {
+                        if (rumorSource == null)
+                        {
+                            Debug.Log("chose source");
+                            rumorSource = personality.gameObject;
+
+                            currentLinkIndication = Instantiate(LinkIndicationPrefab);
+                            currentLinkIndication.SetActive(true);
+                            var temp = currentLinkIndication.GetComponent<Link>();
+                            temp.recieveTargets(personality);
+
+                            rumorModePhase++;
+                        }
+                        else if (rumorTarget == null)
+                        {
+                            Debug.Log("chose target");
+                            rumorTarget = personality.gameObject;
+                            rumorModePhase++;
+                        }
+                    }
+
                     //the only legit thing right now is to click/drag
                     draggedThing = personality;
                 }
@@ -113,7 +148,30 @@ public class PlayerPhase : MonoBehaviour, TurnPhase
 
         var progress = targetZoom / 100;
 
-        camera.orthographicSize = Mathf.Lerp(minZoom, maxZoom, progress);
+        if (rumorMode)
+        {
+            if( Input.GetMouseButtonUp(0))
+            {
+                if (rumorModePhase == 1)
+                {
+                    rumorIndicatorSource = Instantiate(sourceReticule, rumorSource.transform.position, this.transform.rotation);
+                }
+                if (rumorModePhase == 2)
+                {
+                    rumorIndicatorSource = Instantiate(targetReticule, rumorSource.transform.position, this.transform.rotation);
+                    Destroy(currentLinkIndication);
+                    Destroy(rumorIndicatorSource);
+                    Destroy(rumorIndicatorTarget);
+
+                    //start rumor
+
+                    rumorModePhase = 0;
+                    rumorMode = false;
+                }
+            }
+        }
+
+        
 
         //process actions
         mouseWorldLast = camera.ScreenToWorldPoint(Input.mousePosition);
@@ -132,6 +190,11 @@ public class PlayerPhase : MonoBehaviour, TurnPhase
             Cursor.visible = false;
         }
         return isDone;
+    }
+
+    public void startRumorMode()
+    {
+        rumorMode = true;
     }
 
     public void turnStart()

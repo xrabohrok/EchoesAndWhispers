@@ -653,7 +653,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 428003765}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1654576184}
+        m_MethodName: startRumorMode
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &428003765
@@ -1428,13 +1439,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   actions: 2
-  zoomMultiplier: 50
+  zoomMultiplier: 49.83
   maxZoom: 600
   minZoom: 200
   maxPan_left: -400
   maxPan_right: 600.35
   maxPan_up: 800
   maxPan_down: -200
+  targetReticule: {fileID: 1663079332145072, guid: 9928b47b2c7b8e34fa23ef7d82d937e4,
+    type: 2}
+  sourceReticule: {fileID: 1738953500868318, guid: 665dbc98e485f3c4cb936de7fe28263c,
+    type: 2}
+  LinkIndicationPrefab: {fileID: 1966127251030806, guid: 033431091fe3e9e49a35bda77f095d9c,
+    type: 2}
 --- !u!114 &1654576185
 MonoBehaviour:
   m_ObjectHideFlags: 0
