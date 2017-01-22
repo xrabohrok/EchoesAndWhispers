@@ -8,6 +8,8 @@ public class SoundEffectScript : MonoBehaviour {
     public AudioClip scissors;
     public AudioClip murmurs;
     public AudioClip clearThroat;
+    public AudioClip papersRustling;
+
 
     private AudioSource source;
 
@@ -40,6 +42,11 @@ public class SoundEffectScript : MonoBehaviour {
     public void PlayClearThroat()
     {
         source.PlayOneShot(this.clearThroat, 1.0f);
+    }
+
+    public void PlayPapersRustling()
+    {
+        source.PlayOneShot(this.papersRustling, 1.0f);
     }
 
 }

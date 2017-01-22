@@ -1,10 +1,14 @@
 fileFormatVersion: 2
 guid: d6c3b1d0441b887478b66ab8ecdf9df2
-timeCreated: 1485105246
+timeCreated: 1485110325
 licenseType: Free
 MonoImporter:
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - gunshot: {fileID: 8300000, guid: 431a1bad01215ce4d857be03a8962560, type: 3}
+  - scissors: {fileID: 8300000, guid: 84a1603d1a2cae441ae576ef5a087b74, type: 3}
+  - murmurs: {fileID: 8300000, guid: ffc60ac051324cc488c1d60f921626be, type: 3}
+  - clearThroat: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
