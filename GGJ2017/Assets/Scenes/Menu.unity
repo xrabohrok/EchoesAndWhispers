@@ -438,7 +438,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 580577741}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1465725967}
+        m_MethodName: QuitGame
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 1
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &580577741
@@ -559,6 +570,7 @@ GameObject:
   - component: {fileID: 1465725965}
   - component: {fileID: 1465725964}
   - component: {fileID: 1465725963}
+  - component: {fileID: 1465725967}
   m_Layer: 5
   m_Name: MainMenu
   m_TagString: Untagged
@@ -644,6 +656,21 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &1465725967
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1465725962}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d5b9c747d0567d4391a837586904aa6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Menu: {fileID: 1465725965}
+  StartGame: {fileID: 2050816310}
+  Credits: {fileID: 497647709}
+  ExitGame: {fileID: 580577740}
 --- !u!1 &1729370573
 GameObject:
   m_ObjectHideFlags: 0
@@ -865,7 +892,6 @@ GameObject:
   - component: {fileID: 2050816312}
   - component: {fileID: 2050816311}
   - component: {fileID: 2050816310}
-  - component: {fileID: 2050816313}
   m_Layer: 5
   m_Name: btn_startGame
   m_TagString: Untagged
@@ -931,9 +957,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 11500000, guid: 4d5b9c747d0567d4391a837586904aa6, type: 3}
-        m_MethodName: 
-        m_Mode: 5
+      - m_Target: {fileID: 1465725967}
+        m_MethodName: StartLevel
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -977,18 +1003,3 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2050816308}
---- !u!114 &2050816313
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 2050816308}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4d5b9c747d0567d4391a837586904aa6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Menu: {fileID: 0}
-  StartGame: {fileID: 0}
-  Credits: {fileID: 0}
-  ExitGame: {fileID: 0}
