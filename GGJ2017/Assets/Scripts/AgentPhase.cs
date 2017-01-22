@@ -39,6 +39,7 @@ public class AgentPhase : MonoBehaviour, TurnPhase
         Debug.Log("start Agent turn");
         agentStart = Agent.transform.position;
         amDone = false;
+        phase = 0;
     }
 
     public void DoPhase()
@@ -65,12 +66,28 @@ public class AgentPhase : MonoBehaviour, TurnPhase
             {
                 AgentComp.Target = FirstPerson.GetComponent<Person>();
             }
+
             else
             {
                 //determine other person here
-            }
+                var connections = AgentComp.Target.getConnections();
+                var otherPeople = new List<Person>();
+                foreach (var connection in connections)
+                {
+                    if (connection.personB != AgentComp.Target && connection.personB.alive)
+                        otherPeople.Add(connection.personB);
+                    if (connection.personA != AgentComp.Target && connection.personA.alive)
+                        otherPeople.Add(connection.personA);
+                }
 
-            Agent.transform.position = Vector2.Lerp(agentStart, AgentComp.Target.transform.position, camSwoosh);
+                AgentComp.Target = otherPeople[Mathf.FloorToInt(Random.value * otherPeople.Count)];
+            }
+            phase++;
+        }
+        else if(phase==2)
+        { 
+
+        Agent.transform.position = Vector2.Lerp(agentStart, AgentComp.Target.transform.position, camSwoosh);
             agentCam.transform.position = Agent.transform.position;
             agentCam.transform.position = new Vector3(agentCam.transform.position.x, agentCam.transform.position.y, -10);
 

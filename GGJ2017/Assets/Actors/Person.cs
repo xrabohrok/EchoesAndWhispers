@@ -25,6 +25,8 @@ public class Person : MonoBehaviour
 
     public List<ManualConnection> peopleConnections; 
 
+    public bool isMissionTarget = false;
+
 	// Use this for initialization
 	void Start ()
 	{
@@ -67,6 +69,7 @@ public class Person : MonoBehaviour
             }
         }
 
+	    alive = true;
 
         if (connections == null)
             connections = new List<Link>();
