@@ -28,7 +28,7 @@ public class ButtonScript : MonoBehaviour {
 
    public void StartLevel()
     {
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene(0);
 
     }
 
@@ -36,5 +36,11 @@ public class ButtonScript : MonoBehaviour {
     {
 
         Application.Quit();
+    }
+    
+    public void LoadCredits()
+    {
+        SceneManager.LoadScene("Credits");
+
     }
 }
