@@ -9,6 +9,7 @@ public class Person : MonoBehaviour
 {
     public List<Sprite> boyPics;
     public List<Sprite> girlPics;
+    public bool generateId = true;
 
     public GameObject PortraitTarget;
 
@@ -27,7 +28,6 @@ public class Person : MonoBehaviour
 	// Use this for initialization
 	void Start ()
 	{
-	    var portRenderer = PortraitTarget.GetComponent<SpriteRenderer>();
 
 	    if (boyNames == null)
 	    {
@@ -42,23 +42,28 @@ public class Person : MonoBehaviour
             girlNames = rawGirlNames.text.Split('\n').ToList();
         }
 
-	    isBoy = Mathf.FloorToInt(Random.value) * 100 > 50;
+        if(generateId)
+        {
+            var portRenderer = PortraitTarget.GetComponent<SpriteRenderer>();
 
-	    if (isBoy)
-	    {
-	        name = boyNames[Mathf.FloorToInt((Random.value * boyNames.Count))];
-	        if (portRenderer != null)
-	        {
-	            portRenderer.sprite = boyPics[Mathf.FloorToInt((Random.value * boyPics.Count))];
-	        }
+            isBoy = Mathf.FloorToInt(Random.value * 100) > 50;
 
-        }
-	    else
-	    {
-	        name = girlNames[Mathf.FloorToInt((Random.value * boyNames.Count))];
-            if (portRenderer != null)
+            if (isBoy)
             {
-                portRenderer.sprite = girlPics[Mathf.FloorToInt((Random.value * girlPics.Count))];
+                name = boyNames[Mathf.FloorToInt((Random.value * boyNames.Count))];
+                if (portRenderer != null)
+                {
+                    portRenderer.sprite = boyPics[Mathf.FloorToInt((Random.value * boyPics.Count))];
+                }
+
+            }
+            else
+            {
+                name = girlNames[Mathf.FloorToInt((Random.value * boyNames.Count))];
+                if (portRenderer != null)
+                {
+                    portRenderer.sprite = girlPics[Mathf.FloorToInt((Random.value * girlPics.Count))];
+                }
             }
         }
 
