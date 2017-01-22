@@ -7,6 +7,12 @@ using Random = UnityEngine.Random;
 [RequireComponent(typeof(SpriteRenderer))]
 public class Person : MonoBehaviour
 {
+    public List<Sprite> boyPics;
+    public List<Sprite> girlPics;
+    public bool generateId = true;
+
+    public GameObject PortraitTarget;
+
     public static List<string> boyNames;
     private static List<string> girlNames;
 
@@ -22,10 +28,12 @@ public class Person : MonoBehaviour
 	// Use this for initialization
 	void Start ()
 	{
+
 	    if (boyNames == null)
 	    {
 	        var rawBoyNames = Resources.Load<TextAsset>("boy_names");
 	        boyNames = rawBoyNames.text.Split('\n').ToList();
+            
 	    }
 
         if (girlNames == null)
@@ -34,12 +42,30 @@ public class Person : MonoBehaviour
             girlNames = rawGirlNames.text.Split('\n').ToList();
         }
 
-	    isBoy = Mathf.FloorToInt(Random.value) * 100 > 50;
+        if(generateId)
+        {
+            var portRenderer = PortraitTarget.GetComponent<SpriteRenderer>();
 
-	    if (isBoy)
-	        name = boyNames[Mathf.FloorToInt((Random.value * boyNames.Count))];
-	    else
-	        name = girlNames[Mathf.FloorToInt((Random.value * boyNames.Count))];
+            isBoy = Mathf.FloorToInt(Random.value * 100) > 50;
+
+            if (isBoy)
+            {
+                name = boyNames[Mathf.FloorToInt((Random.value * boyNames.Count))];
+                if (portRenderer != null)
+                {
+                    portRenderer.sprite = boyPics[Mathf.FloorToInt((Random.value * boyPics.Count))];
+                }
+
+            }
+            else
+            {
+                name = girlNames[Mathf.FloorToInt((Random.value * boyNames.Count))];
+                if (portRenderer != null)
+                {
+                    portRenderer.sprite = girlPics[Mathf.FloorToInt((Random.value * girlPics.Count))];
+                }
+            }
+        }
 
 
         if (connections == null)
