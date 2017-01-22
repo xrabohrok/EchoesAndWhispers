@@ -5,7 +5,8 @@ using UnityEngine;
 public class Rumor: MonoBehaviour {
 
     public List<Person> infectedPersons;
-    public Link target;
+    public Person target;
+    public List<Person> allPersons;
 
 	// Use this for initialization
 	void Start () {	}
@@ -24,9 +25,25 @@ public class Rumor: MonoBehaviour {
         }
     }
 
-    public void startRumorAbout(Link target, Person start)
+    public void recursivelyFillPersonList(Person person)
+    {
+        person.getConnections().ForEach((Link link) => {
+            var otherPerson = person.getOtherPersonFromLink(link);
+            if (!this.allPersons.Contains(otherPerson) && otherPerson != this.target)
+            {
+                this.allPersons.Add(otherPerson);
+                this.recursivelyFillPersonList(otherPerson);
+            }
+        });
+    }
+
+    public void startRumorAbout(Person target, Person start)
     {
         this.target = target;
+
+        this.allPersons = new List<Person>();
+        this.recursivelyFillPersonList(start);
+
         if (this.infectedPersons == null)
         {
             this.infectedPersons = new List<Person>();
@@ -36,31 +53,34 @@ public class Rumor: MonoBehaviour {
 
     public void propagate()
     {
-        if(this.infectedPersons.Contains(this.target.personA) || this.infectedPersons.Contains(this.target.personB))
-        {
-            // TODO: Break chance.
-            this.breakLink();
-            // TODO: If the break chance fails, destroy self?
-        }
-
         this.infectedPersons.ForEach((Person infected) =>
         {
             infected.getConnections().ForEach((Link connection) => {
-                Person otherPerson = infected.getOtherPersonFromLink(connection);
-                if (!otherPerson.isInfectedByRumor(this))
+                if (connection.contains(this.target))
                 {
-                    // TODO: Miss chance
-                    this.infect(otherPerson);
+                    //TODO: Miss chance.
+                    this.breakLink(infected);
+                }
+                else
+                {
+                    Person otherPerson = infected.getOtherPersonFromLink(connection);
+                    if (!otherPerson.isInfectedByRumor(this))
+                    {
+                        // TODO: Miss chance
+                        this.infect(otherPerson);
+                    }
                 }
             });
         });
+        
+        if(this.infectedPersons == this.allPersons)
+        { this.destroySelf(); }
     }
 
-    public void breakLink()
+    public void breakLink(Person person)
     {
-        this.target.personA.breakLinkWith(this.target.personB);
-        this.target.personB.breakLinkWith(this.target.personA);
-        this.destroySelf();
+        person.breakLinkWith(this.target);
+        this.target.breakLinkWith(person);
     }
 
     public void destroySelf()
