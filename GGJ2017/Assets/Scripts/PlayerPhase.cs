@@ -1,14 +1,13 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using UnityEditor;
-using UnityEngine;
+﻿using UnityEngine;
 
 [RequireComponent(typeof(ClickScript))]
 public class PlayerPhase : MonoBehaviour, TurnPhase
 {
 
     public int actions = 2;
+    public float zoomMultiplier = .6f;
+    public float maxZoom = 600;
+    public float minZoom = 200;
 
     private int actionsLeft = 2;
     private ClickScript clickControl;
@@ -16,11 +15,14 @@ public class PlayerPhase : MonoBehaviour, TurnPhase
     private Camera camera;
 
     private Person draggedThing = null;
+    private float targetZoom;
+
 
     // Use this for initialization
 	void Start ()
 	{
 	    clickControl = GetComponent<ClickScript>();
+	    targetZoom = .5f;
 	}
 	
 	// Update is called once per frame
@@ -44,7 +46,6 @@ public class PlayerPhase : MonoBehaviour, TurnPhase
                     draggedThing = personality;
                 }
             }
-
         }
 
         if (draggedThing != null)
@@ -56,6 +57,17 @@ public class PlayerPhase : MonoBehaviour, TurnPhase
         {
             draggedThing = null;
         }
+
+        targetZoom += Input.GetAxis("Mouse ScrollWheel") * zoomMultiplier;
+        if (targetZoom <= 0)
+            targetZoom = 0;
+        else if (targetZoom >= 100)
+            targetZoom = 100;
+
+        var progress = targetZoom / 100;
+
+        camera.orthographicSize = Mathf.Lerp(minZoom, maxZoom, progress);
+
         //process actions
     }
 
