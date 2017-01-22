@@ -32,6 +32,7 @@ public class TurnMaster : MonoBehaviour
 	{
 	    if (firstTurn)
 	    {
+            turnParts[currentPhase].informOfRealDad(this);
 	        turnParts[currentPhase].turnStart();
 	        firstTurn = false;
 	    }
@@ -53,6 +54,11 @@ public class TurnMaster : MonoBehaviour
 	    }
 	    
 	}
+
+    public void recieveTurnAction(TurnAction go)
+    {
+        
+    }
 }
 
 public interface TurnPhase
@@ -60,6 +66,23 @@ public interface TurnPhase
     void turnStart();
     void DoPhase();
     void RecieveCameraControl(Camera cam);
+    void informOfRealDad(TurnMaster master);
     bool amIDone();
 
+}
+
+public class TurnAction
+{
+    public TurnAction(int act, Person personA, Person personB)
+    {
+        action = act;
+        A = personA;
+        B = personB;
+    }
+
+    //rumor = 0
+    public int action;
+
+    public Person A;
+    public Person B;
 }

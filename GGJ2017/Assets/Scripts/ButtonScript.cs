@@ -7,14 +7,14 @@ using UnityEngine.SceneManagement;
 public class ButtonScript : MonoBehaviour {
 
 
-    public Canvas Menu;
+    public Canvas MainMenu;
     public Button StartGame;
     public Button Credits;
     public Button ExitGame;
 
 	// Use this for initialization
 	void Start () {
-        Menu = Menu.GetComponent<Canvas>();
+        MainMenu = MainMenu.GetComponent<Canvas>();
         StartGame = StartGame.GetComponent<Button>();
         Credits = Credits.GetComponent<Button>();
             ExitGame= ExitGame.GetComponent<Button>();
@@ -28,7 +28,8 @@ public class ButtonScript : MonoBehaviour {
 
    public void StartLevel()
     {
-        SceneManager.LoadScene(1);
-
+        SceneManager.LoadScene("Level");
     }
+
+
 }

@@ -52,3 +52,6 @@ TagManager:
   - name: people
     uniqueID: 424927591
     locked: 0
+  - name: indicators
+    uniqueID: 1302077627
+    locked: 0

@@ -13,7 +13,7 @@ public class Link : MonoBehaviour
 
     public int numPieces = 10;
 
-
+    private bool mouseLinked;
     private float LinkWidth = .5f;
 
     private bool wasVisible = true;
@@ -21,20 +21,31 @@ public class Link : MonoBehaviour
     void Start()
     {
         for (int i = 0; i < numPieces; i++)
-        {
-            var temp = GameObject.Instantiate(drawLinkPiece);
+        {
+            var temp = GameObject.Instantiate(drawLinkPiece);
 
-            temp.transform.position = transform.position;
-            temp.transform.localPosition = new Vector3(LinkWidth, 0) * i;
-            temp.transform.parent = this.gameObject.transform;
+            temp.transform.position = transform.position;
+            temp.transform.localPosition = new Vector3(LinkWidth, 0) * i;
+            temp.transform.parent = this.gameObject.transform;
 
-        }
+        }
     }
 
     public void recieveTargets(Person a, Person b)
     {        personA = a;
         personB = b;
     }
+
+    public void recieveTargets(Person a)
+    {
+        personA = a;
+        mouseLinked = true;        Visible = true;
+    }
+
+    public void passToPersonTarget(Person b)
+    {
+        personB = b;
+        mouseLinked = false;    }
 
     public bool contains(Person person)
     {
@@ -43,10 +54,18 @@ public class Link : MonoBehaviour
 
     // Update is called once per frame
     void Update()
-    {        if (personA != null && personB != null)
+    {        if (personA != null && (personB != null || mouseLinked))
         {
             var placea = personA.transform.position;
-            var placeb = personB.transform.position;
+            Vector3 placeb;
+            if(!mouseLinked)
+            {
+                 placeb = personB.transform.position;
+            }
+            else
+            {
+                placeb = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            }
 
             this.transform.position = placea;
             var dist = placeb - placea;
