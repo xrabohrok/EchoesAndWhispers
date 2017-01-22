@@ -15,6 +15,8 @@ public class Person : MonoBehaviour
     public bool alive { get; set; }
     public List<Rumor> rumors;
 
+    private bool isBoy;
+
     public List<ManualConnection> peopleConnections; 
 
 	// Use this for initialization
@@ -29,12 +31,18 @@ public class Person : MonoBehaviour
         if (girlNames == null)
         {
             var rawGirlNames = Resources.Load<TextAsset>("girl_names");
-            boyNames = rawGirlNames.text.Split('\n').ToList();
+            girlNames = rawGirlNames.text.Split('\n').ToList();
         }
 
-        name =  boyNames[Mathf.FloorToInt((Random.value * boyNames.Count))];
+	    isBoy = Mathf.FloorToInt(Random.value) * 100 > 50;
 
-        if(connections == null)
+	    if (isBoy)
+	        name = boyNames[Mathf.FloorToInt((Random.value * boyNames.Count))];
+	    else
+	        name = girlNames[Mathf.FloorToInt((Random.value * boyNames.Count))];
+
+
+        if (connections == null)
             connections = new List<Link>();
     }
 
