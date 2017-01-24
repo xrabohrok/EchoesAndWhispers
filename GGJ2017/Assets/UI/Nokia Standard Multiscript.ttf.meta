@@ -1,0 +1,21 @@
+fileFormatVersion: 2
+guid: b77e8a2065a798d4a83d4541ce829a4a
+timeCreated: 1485222457
+licenseType: Free
+TrueTypeFontImporter:
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Nokia Standard Multiscript
+  fontNames:
+  - Nokia Standard Multiscript
+  fallbackFontReferences: []
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
