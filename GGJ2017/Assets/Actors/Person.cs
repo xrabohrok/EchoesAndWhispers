@@ -19,7 +19,6 @@ public class Person : MonoBehaviour
     public string name;
     private List<Link> connections;
     public bool alive { get; set; }
-    public List<Rumor> rumors;
 
     private bool isBoy;
 
@@ -131,17 +130,6 @@ public class Person : MonoBehaviour
     public void die()
     {
         this.alive = false;
-    }
-
-    public void infect(Rumor rumor)
-    {
-        this.rumors.Add(rumor);
-        // TODO: Any other rumor actions.
-    }
-
-    public bool isInfectedByRumor(Rumor rumor)
-    {
-        return this.rumors.Contains(rumor);
     }
 
     public List<Link> getConnections()
