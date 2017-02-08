@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -30,60 +29,61 @@ public class Lead : MonoBehaviour
 	void Start ()
 	{
 
-	    if (boyNames == null)
-	    {
-	        var rawBoyNames = Resources.Load<TextAsset>("boy_names");
-	        boyNames = rawBoyNames.text.Split('\n').ToList();
-            
-	    }
-
-        if (girlNames == null)
-        {
-            var rawGirlNames = Resources.Load<TextAsset>("girl_names");
-            girlNames = rawGirlNames.text.Split('\n').ToList();
-        }
-
-        if(generateId)
-        {
-            var portRenderer = PortraitTarget.GetComponent<SpriteRenderer>();
-
-            isBoy = Mathf.FloorToInt(Random.value * 100) > 50;
-
-            if (isBoy)
-            {
-                name = boyNames[Mathf.FloorToInt((Random.value * boyNames.Count))];
-                if (portRenderer != null)
-                {
-                    portRenderer.sprite = boyPics[Mathf.FloorToInt((Random.value * boyPics.Count))];
-                }
-
-            }
-            else
-            {
-                name = girlNames[Mathf.FloorToInt((Random.value * boyNames.Count))];
-                if (portRenderer != null)
-                {
-                    portRenderer.sprite = girlPics[Mathf.FloorToInt((Random.value * girlPics.Count))];
-                }
-            }
-        }
-
-	    alive = true;
-
-        if (connections == null)
-            connections = new List<Link>();
+        /********** I have use for this, but not yet **********/
+//	    if (boyNames == null)
+//	    {
+//	        var rawBoyNames = Resources.Load<TextAsset>("boy_names");
+//	        boyNames = rawBoyNames.text.Split('\n').ToList();
+//            
+//	    }
+//
+//        if (girlNames == null)
+//        {
+//            var rawGirlNames = Resources.Load<TextAsset>("girl_names");
+//            girlNames = rawGirlNames.text.Split('\n').ToList();
+//        }
+//
+//        if(generateId)
+//        {
+//            var portRenderer = PortraitTarget.GetComponent<SpriteRenderer>();
+//
+//            isBoy = Mathf.FloorToInt(Random.value * 100) > 50;
+//
+//            if (isBoy)
+//            {
+//                name = boyNames[Mathf.FloorToInt((Random.value * boyNames.Count))];
+//                if (portRenderer != null)
+//                {
+//                    portRenderer.sprite = boyPics[Mathf.FloorToInt((Random.value * boyPics.Count))];
+//                }
+//
+//            }
+//            else
+//            {
+//                name = girlNames[Mathf.FloorToInt((Random.value * boyNames.Count))];
+//                if (portRenderer != null)
+//                {
+//                    portRenderer.sprite = girlPics[Mathf.FloorToInt((Random.value * girlPics.Count))];
+//                }
+//            }
+//        }
+//
+//	    alive = true;
+//
+//        if (connections == null)
+//            connections = new List<Link>();
     }
 
     public void recieveLink(Link link)
     {
         if (connections == null)
             connections = new List<Link>();
-        Lead other = this.getOtherPersonFromLink(link);
+        Lead other = this.getOtherLeadFromLink(link);
         if(!this.isLinkedTo(other))
             connections.Add(link);
     }
 
-    public Lead getOtherPersonFromLink(Link link)
+    public Lead getOtherLeadFromLink(Link link)
     {
         Lead otherLead;
         if (link.leadA == this)
@@ -103,21 +103,6 @@ public class Lead : MonoBehaviour
     public List<ManualConnection> showStarterLinks()
     {
         return peopleConnections;
-    }
-
-    public void breakLinkWith(Lead lead)
-    {
-        connections.ForEach((Link linkToPerson) => {
-            if (linkToPerson.leadA == lead || linkToPerson.leadB == lead)
-            {
-                this.connections.Remove(linkToPerson);
-            }
-        });
-    }
-
-    public void breakLink(Link link)
-    {
-        connections.Remove(link);
     }
 
     public void createLinkWith(Lead lead)
