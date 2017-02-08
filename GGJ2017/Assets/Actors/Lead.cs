@@ -1,11 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
 [RequireComponent(typeof(SpriteRenderer))]
 public class Lead : MonoBehaviour
 {
+    public List<GameObject> investigationObjects;
+
+    public List<InvestigationYields> unrevealedConnectedLeads;
+    public List<InvestigationYields> revealedConnectedLeads;
+
+    public int StarterInvestigationCost = 3;
+    public int InvestigationCost { get { return workingInvestigationCost; } }
+    private int workingInvestigationCost;
+
     public List<Sprite> boyPics;
     public List<Sprite> girlPics;
     public bool generateId = true;
@@ -21,13 +31,20 @@ public class Lead : MonoBehaviour
 
     private bool isBoy;
 
-    public List<ManualConnection> peopleConnections; 
+    public List<ManualConnection> peopleConnections;
 
-    public bool isMissionTarget = false;
 
-	// Use this for initialization
+    // Use this for initialization
 	void Start ()
 	{
+	    workingInvestigationCost = StarterInvestigationCost;
+
+	    foreach (var investigationObject in investigationObjects)
+	    {
+	        var investigationYield = investigationObject.GetComponent<InvestigationYields>();
+            if(investigationYield != null)
+                unrevealedConnectedLeads.Add(investigationYield);
+	    }
 
         /********** I have use for this, but not yet **********/
 //	    if (boyNames == null)
@@ -70,8 +87,37 @@ public class Lead : MonoBehaviour
 //
 //	    alive = true;
 //
-//        if (connections == null)
-//            connections = new List<Link>();
+        if (connections == null)
+            connections = new List<Link>();
+    }
+
+    public InvestigationYields drawRandomEvent()
+    {
+        if (!unrevealedConnectedLeads.Any())
+        {
+            return null;
+        }
+
+        var randSlot = Mathf.FloorToInt(Random.value) % (unrevealedConnectedLeads.Count - 1);
+        var selected = unrevealedConnectedLeads[randSlot];
+
+        revealedConnectedLeads.Add(selected);
+        unrevealedConnectedLeads.Remove(selected);
+
+        return selected;    
+    }
+
+    public investigationSize GetInvestigationSize()
+    {
+        var remaining = unrevealedConnectedLeads.Count;
+        if( remaining < 2)
+            return investigationSize.SMALL;
+        else if (remaining >= 2 && remaining < 5)
+            return investigationSize.MEDIUM;
+        else if (remaining >= 5 && remaining < 7)
+            return investigationSize.LARGE;
+        else 
+            return investigationSize.BOTTOMLESS;
     }
 
     public void recieveLink(Link link)
@@ -138,4 +184,14 @@ public class ManualConnection
 {
     public bool visible;
     public GameObject person;
+}
+
+
+public enum investigationSize
+{
+    SMALL,
+    MEDIUM,
+    LARGE,
+    UNTOUCHED,
+    BOTTOMLESS
 }

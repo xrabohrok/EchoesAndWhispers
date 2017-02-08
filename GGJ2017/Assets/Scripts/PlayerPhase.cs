@@ -84,11 +84,22 @@ public class PlayerPhase : MonoBehaviour, TurnPhase
             if (Input.GetMouseButtonDown(0))
             {
                 //pan cam
-                var mouseWorldPoint = camera.ScreenToWorldPoint(Input.mousePosition);
                 panning = true;
             }
         }
 
+        processCamera();
+
+        processRumors();
+        processHobNob();
+
+
+        //process actions
+        mouseWorldLast = camera.ScreenToWorldPoint(Input.mousePosition);
+    }
+
+    private void processCamera()
+    {
         if (panning)
         {
             var currentMouseCam = camera.ScreenToWorldPoint(Input.mousePosition);
@@ -103,7 +114,6 @@ public class PlayerPhase : MonoBehaviour, TurnPhase
                 camera.transform.position = new Vector3(camera.transform.position.x, maxPan_down, zDepth);
             if (camera.transform.position.y > maxPan_up)
                 camera.transform.position = new Vector3(camera.transform.position.x, maxPan_up, zDepth);
-
 
         }
 
@@ -130,9 +140,10 @@ public class PlayerPhase : MonoBehaviour, TurnPhase
         var progress = targetZoom / 100;
 
         camera.orthographicSize = Mathf.Lerp(minZoom, maxZoom, progress);
+    }
 
-
-        processRumors();
+    private void processHobNob()
+    {
         if (hobnobMode)
         {
             var conns = GameObject.FindGameObjectsWithTag("connection");
@@ -151,10 +162,6 @@ public class PlayerPhase : MonoBehaviour, TurnPhase
             hobnobMode = false;
 
         }
-
-
-        //process actions
-        mouseWorldLast = camera.ScreenToWorldPoint(Input.mousePosition);
     }
 
     private void processRumorMouseInput(Lead personality)
