@@ -9,8 +9,14 @@ public class TurnMaster : MonoBehaviour
 
     private List<TurnPhase> turnParts;
 
-    public int day;
     private int currentPhase;
+
+    public int daysUsed;
+    public int hoursUsed;
+    public const int maxDays = 15;
+    public const int hoursPerDay = 10;
+    public const int hoursPerOvernighter = 15;
+
 
     private bool firstTurn = true;
 
@@ -25,7 +31,8 @@ public class TurnMaster : MonoBehaviour
 	            turnParts.Add(temp);
 	        }
 	    }
-        day = 1;
+        daysUsed = 0;
+        hoursUsed = 0;
 	    currentPhase = 0;
 	}
 	
@@ -51,9 +58,10 @@ public class TurnMaster : MonoBehaviour
 	        currentPhase++;
 	        if (currentPhase >= turnParts.Count)
 	        {
-                day++;
+                daysUsed++;
+                hoursUsed = 0;
 	            currentPhase = 0;
-                if(day > 15)
+                if(daysUsed >= 15)
                 {
                     // gameover?
                 }
