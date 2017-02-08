@@ -9,6 +9,7 @@ public class TurnMaster : MonoBehaviour
 
     private List<TurnPhase> turnParts;
 
+    public int day;
     private int currentPhase;
 
     private bool firstTurn = true;
@@ -24,6 +25,7 @@ public class TurnMaster : MonoBehaviour
 	            turnParts.Add(temp);
 	        }
 	    }
+        day = 1;
 	    currentPhase = 0;
 	}
 	
@@ -49,7 +51,12 @@ public class TurnMaster : MonoBehaviour
 	        currentPhase++;
 	        if (currentPhase >= turnParts.Count)
 	        {
+                day++;
 	            currentPhase = 0;
+                if(day > 15)
+                {
+                    // gameover?
+                }
 	        }
             turnParts[currentPhase].RecieveCameraControl(gameCam.GetComponent<Camera>());
             turnParts[currentPhase].turnStart();
@@ -81,8 +88,7 @@ public class TurnAction
         A = personA;
         B = personB;
     }
-
-    //rumor = 0
+    
     public int action;
 
     public Person A;
