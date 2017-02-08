@@ -15,6 +15,6 @@ class Agent : MonoBehaviour
 
     }
 
-    public Person Target { get; set; }
+    public Lead Target { get; set; }
 
 }

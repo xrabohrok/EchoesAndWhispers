@@ -64,20 +64,20 @@ public class AgentPhase : MonoBehaviour, TurnPhase
         {
             if (AgentComp.Target == null)
             {
-                AgentComp.Target = FirstPerson.GetComponent<Person>();
+                AgentComp.Target = FirstPerson.GetComponent<Lead>();
             }
 
             else
             {
-                //determine other person here
+                //determine other lead here
                 var connections = AgentComp.Target.getConnections();
-                var otherPeople = new List<Person>();
+                var otherPeople = new List<Lead>();
                 foreach (var connection in connections)
                 {
-                    if (connection.personB != AgentComp.Target && connection.personB.alive)
-                        otherPeople.Add(connection.personB);
-                    if (connection.personA != AgentComp.Target && connection.personA.alive)
-                        otherPeople.Add(connection.personA);
+                    if (connection.leadB != AgentComp.Target && connection.leadB.alive)
+                        otherPeople.Add(connection.leadB);
+                    if (connection.leadA != AgentComp.Target && connection.leadA.alive)
+                        otherPeople.Add(connection.leadA);
                 }
 
                 AgentComp.Target = otherPeople[Mathf.FloorToInt(Random.value * otherPeople.Count)];

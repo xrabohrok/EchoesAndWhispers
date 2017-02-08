@@ -5,7 +5,7 @@ using UnityEngine;
 using Random = UnityEngine.Random;
 
 [RequireComponent(typeof(SpriteRenderer))]
-public class Person : MonoBehaviour
+public class Lead : MonoBehaviour
 {
     public List<Sprite> boyPics;
     public List<Sprite> girlPics;
@@ -78,26 +78,26 @@ public class Person : MonoBehaviour
     {
         if (connections == null)
             connections = new List<Link>();
-        Person other = this.getOtherPersonFromLink(link);
+        Lead other = this.getOtherPersonFromLink(link);
         if(!this.isLinkedTo(other))
             connections.Add(link);
     }
 
-    public Person getOtherPersonFromLink(Link link)
+    public Lead getOtherPersonFromLink(Link link)
     {
-        Person otherPerson;
-        if (link.personA == this)
-            otherPerson = link.personB;
+        Lead otherLead;
+        if (link.leadA == this)
+            otherLead = link.leadB;
         else
-            otherPerson = link.personA;
-        return otherPerson;
+            otherLead = link.leadA;
+        return otherLead;
     }
 
-    public bool isLinkedTo(Person person)
+    public bool isLinkedTo(Lead lead)
     {
         if (connections == null)
             return false;
-        return connections.Exists(p => p.personA == person || p.personB == person);
+        return connections.Exists(p => p.leadA == lead || p.leadB == lead);
     }
 
     public List<ManualConnection> showStarterLinks()
@@ -105,10 +105,10 @@ public class Person : MonoBehaviour
         return peopleConnections;
     }
 
-    public void breakLinkWith(Person person)
+    public void breakLinkWith(Lead lead)
     {
         connections.ForEach((Link linkToPerson) => {
-            if (linkToPerson.personA == person || linkToPerson.personB == person)
+            if (linkToPerson.leadA == lead || linkToPerson.leadB == lead)
             {
                 this.connections.Remove(linkToPerson);
             }
@@ -120,10 +120,10 @@ public class Person : MonoBehaviour
         connections.Remove(link);
     }
 
-    public void createLinkWith(Person person)
+    public void createLinkWith(Lead lead)
     {
         Link newLink = new Link();
-        newLink.recieveTargets(this, person);
+        newLink.recieveTargets(this, lead);
         this.recieveLink(newLink);
     }
 

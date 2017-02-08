@@ -22,7 +22,7 @@ public class PlayerPhase : MonoBehaviour, TurnPhase
 
     private Camera camera;
 
-    private Person draggedThing = null;
+    private Lead draggedThing = null;
     private float targetZoom;
 
     private bool panning = false;
@@ -70,7 +70,7 @@ public class PlayerPhase : MonoBehaviour, TurnPhase
         {
             foreach (var thing in clickHover)
             {
-                var personality = thing.GetComponent<Person>();
+                var personality = thing.GetComponent<Lead>();
                 if (personality != null && (Input.GetMouseButtonDown(0)))
                 {
                     processRumorMouseInput(personality);
@@ -157,7 +157,7 @@ public class PlayerPhase : MonoBehaviour, TurnPhase
         mouseWorldLast = camera.ScreenToWorldPoint(Input.mousePosition);
     }
 
-    private void processRumorMouseInput(Person personality)
+    private void processRumorMouseInput(Lead personality)
     {
         if (rumorMode)
         {
@@ -198,11 +198,11 @@ public class PlayerPhase : MonoBehaviour, TurnPhase
                 if (rumorModePhase == 2)
                 {
                     rumorIndicatorTarget = Instantiate(targetReticule, rumorTarget.transform.position, this.transform.rotation);
-                    currentLinkIndication.GetComponent<Link>().passToPersonTarget(rumorTarget.GetComponent<Person>());
+                    currentLinkIndication.GetComponent<Link>().passToPersonTarget(rumorTarget.GetComponent<Lead>());
                     rumorIndicatorTarget.transform.parent = rumorTarget.transform;
 
                     //start rumor
-                    keeper.recieveTurnAction(new TurnAction(0, rumorSource.GetComponent<Person>(), rumorTarget.GetComponent<Person>()));
+                    keeper.recieveTurnAction(new TurnAction(0, rumorSource.GetComponent<Lead>(), rumorTarget.GetComponent<Lead>()));
 
                     rumorModePhase = 0;
                     rumorMode = false;

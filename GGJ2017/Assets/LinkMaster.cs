@@ -15,12 +15,12 @@ public class LinkMaster : MonoBehaviour
         //I don't need people shooting themselves, not now.
 	    foreach (var dude in everyone)
 	    {
-	        var currentPerson = dude.GetComponent<Person>();
+	        var currentPerson = dude.GetComponent<Lead>();
 	        var peopleConnections = currentPerson.showStarterLinks();
 
 	        foreach (var manualConnection in peopleConnections)
 	        {
-	            var personComp = manualConnection.person.GetComponent<Person>();
+	            var personComp = manualConnection.person.GetComponent<Lead>();
 	            if (personComp != null)
 	            {
                     //check existing links real quick
