@@ -20,10 +20,7 @@ public class AgentPhase : MonoBehaviour, TurnPhase
 	    amDone = false;
 	}
 	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+
 
     public void turnStart()
     {
@@ -47,6 +44,6 @@ public class AgentPhase : MonoBehaviour, TurnPhase
 
     public bool amIDone()
     {
-        return amDone;
+        return true;
     }
 }
