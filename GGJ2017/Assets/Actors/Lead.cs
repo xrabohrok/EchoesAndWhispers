@@ -38,6 +38,8 @@ public class Lead : MonoBehaviour
 	void Start ()
 	{
 	    workingInvestigationCost = StarterInvestigationCost;
+        if(unrevealedConnectedLeads == null)
+            unrevealedConnectedLeads = new List<InvestigationYields>();
 
 	    foreach (var investigationObject in investigationObjects)
 	    {
