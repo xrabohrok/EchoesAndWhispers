@@ -11,13 +11,6 @@ public class TurnMaster : MonoBehaviour
 
     private int currentPhase;
 
-    public int daysUsed;
-    public int hoursUsed;
-    public const int maxDays = 15;
-    public const int hoursPerDay = 10;
-    public const int hoursPerOvernighter = 15;
-
-
     private bool firstTurn = true;
 
     // Use this for initialization
@@ -28,11 +21,10 @@ public class TurnMaster : MonoBehaviour
 	        var temp = turnPhase.GetComponent<TurnPhase>();
 	        if (temp != null)
 	        {
+                // Turn parts is the OPTIONS AVAILABLE for each turn phase.
 	            turnParts.Add(temp);
 	        }
 	    }
-        daysUsed = 0;
-        hoursUsed = 0;
 	    currentPhase = 0;
 	}
 	
@@ -43,7 +35,6 @@ public class TurnMaster : MonoBehaviour
 	    {
             turnParts[currentPhase].informOfRealDad(this);
             turnParts[currentPhase].RecieveCameraControl(gameCam.GetComponent<Camera>());
-
             turnParts[currentPhase].turnStart();
 	        firstTurn = false;
 	    }
@@ -58,18 +49,11 @@ public class TurnMaster : MonoBehaviour
 	        currentPhase++;
 	        if (currentPhase >= turnParts.Count)
 	        {
-                daysUsed++;
-                hoursUsed = 0;
 	            currentPhase = 0;
-                if(daysUsed >= 15)
-                {
-                    // gameover?
-                }
 	        }
             turnParts[currentPhase].RecieveCameraControl(gameCam.GetComponent<Camera>());
             turnParts[currentPhase].turnStart();
 	    }
-	    
 	}
 
     public void recieveTurnAction(TurnAction go)
