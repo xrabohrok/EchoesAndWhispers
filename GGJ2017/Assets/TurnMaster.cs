@@ -21,6 +21,7 @@ public class TurnMaster : MonoBehaviour
 	        var temp = turnPhase.GetComponent<TurnPhase>();
 	        if (temp != null)
 	        {
+                // Turn parts is the OPTIONS AVAILABLE for each turn phase.
 	            turnParts.Add(temp);
 	        }
 	    }
@@ -34,7 +35,6 @@ public class TurnMaster : MonoBehaviour
 	    {
             turnParts[currentPhase].informOfRealDad(this);
             turnParts[currentPhase].RecieveCameraControl(gameCam.GetComponent<Camera>());
-
             turnParts[currentPhase].turnStart();
 	        firstTurn = false;
 	    }
@@ -54,7 +54,6 @@ public class TurnMaster : MonoBehaviour
             turnParts[currentPhase].RecieveCameraControl(gameCam.GetComponent<Camera>());
             turnParts[currentPhase].turnStart();
 	    }
-	    
 	}
 
     public void recieveTurnAction(TurnAction go)
@@ -81,8 +80,7 @@ public class TurnAction
         A = leadA;
         B = leadB;
     }
-
-    //rumor = 0
+    
     public int action;
 
     public Lead A;
