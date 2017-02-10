@@ -22,7 +22,7 @@ public class PlayerPhase : MonoBehaviour, TurnPhase
 
     private Camera camera;
 
-    private Person draggedThing = null;
+    private Lead draggedThing = null;
     private float targetZoom;
 
     private bool panning = false;
@@ -70,7 +70,7 @@ public class PlayerPhase : MonoBehaviour, TurnPhase
         {
             foreach (var thing in clickHover)
             {
-                var personality = thing.GetComponent<Person>();
+                var personality = thing.GetComponent<Lead>();
                 if (personality != null && (Input.GetMouseButtonDown(0)))
                 {
                     processRumorMouseInput(personality);
@@ -84,11 +84,22 @@ public class PlayerPhase : MonoBehaviour, TurnPhase
             if (Input.GetMouseButtonDown(0))
             {
                 //pan cam
-                var mouseWorldPoint = camera.ScreenToWorldPoint(Input.mousePosition);
                 panning = true;
             }
         }
 
+        processCamera();
+
+        processRumors();
+        processHobNob();
+
+
+        //process actions
+        mouseWorldLast = camera.ScreenToWorldPoint(Input.mousePosition);
+    }
+
+    private void processCamera()
+    {
         if (panning)
         {
             var currentMouseCam = camera.ScreenToWorldPoint(Input.mousePosition);
@@ -103,7 +114,6 @@ public class PlayerPhase : MonoBehaviour, TurnPhase
                 camera.transform.position = new Vector3(camera.transform.position.x, maxPan_down, zDepth);
             if (camera.transform.position.y > maxPan_up)
                 camera.transform.position = new Vector3(camera.transform.position.x, maxPan_up, zDepth);
-
 
         }
 
@@ -130,9 +140,10 @@ public class PlayerPhase : MonoBehaviour, TurnPhase
         var progress = targetZoom / 100;
 
         camera.orthographicSize = Mathf.Lerp(minZoom, maxZoom, progress);
+    }
 
-
-        processRumors();
+    private void processHobNob()
+    {
         if (hobnobMode)
         {
             var conns = GameObject.FindGameObjectsWithTag("connection");
@@ -151,13 +162,9 @@ public class PlayerPhase : MonoBehaviour, TurnPhase
             hobnobMode = false;
 
         }
-
-
-        //process actions
-        mouseWorldLast = camera.ScreenToWorldPoint(Input.mousePosition);
     }
 
-    private void processRumorMouseInput(Person personality)
+    private void processRumorMouseInput(Lead personality)
     {
         if (rumorMode)
         {
@@ -198,11 +205,11 @@ public class PlayerPhase : MonoBehaviour, TurnPhase
                 if (rumorModePhase == 2)
                 {
                     rumorIndicatorTarget = Instantiate(targetReticule, rumorTarget.transform.position, this.transform.rotation);
-                    currentLinkIndication.GetComponent<Link>().passToPersonTarget(rumorTarget.GetComponent<Person>());
+                    currentLinkIndication.GetComponent<Link>().passToPersonTarget(rumorTarget.GetComponent<Lead>());
                     rumorIndicatorTarget.transform.parent = rumorTarget.transform;
 
                     //start rumor
-                    keeper.recieveTurnAction(new TurnAction(0, rumorSource.GetComponent<Person>(), rumorTarget.GetComponent<Person>()));
+                    keeper.recieveTurnAction(new TurnAction(0, rumorSource.GetComponent<Lead>(), rumorTarget.GetComponent<Lead>()));
 
                     rumorModePhase = 0;
                     rumorMode = false;

@@ -90,15 +90,15 @@ public interface TurnPhase
 
 public class TurnAction
 {
-    public TurnAction(int act, Person personA, Person personB)
+    public TurnAction(int act, Lead leadA, Lead leadB)
     {
         action = act;
-        A = personA;
-        B = personB;
+        A = leadA;
+        B = leadB;
     }
     
     public int action;
 
-    public Person A;
-    public Person B;
+    public Lead A;
+    public Lead B;
 }

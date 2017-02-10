@@ -5,8 +5,8 @@ using UnityEngine;
 [RequireComponent(typeof(SpriteRenderer))]
 public class Link : MonoBehaviour
 {
-    public Person personA;
-    public Person personB;
+    public Lead leadA;
+    public Lead leadB;
     public bool Visible = true;
     public GameObject drawLinkPiece;
     public float baseScale = 1f;
@@ -38,36 +38,36 @@ public class Link : MonoBehaviour
         wasVisible = Visible;
     }
 
-    public void recieveTargets(Person a, Person b)
-    {        personA = a;
-        personB = b;
+    public void recieveTargets(Lead a, Lead b)
+    {        leadA = a;
+        leadB = b;
     }
 
-    public void recieveTargets(Person a)
+    public void recieveTargets(Lead a)
     {
-        personA = a;
+        leadA = a;
         mouseLinked = true;        Visible = true;
     }
 
-    public void passToPersonTarget(Person b)
+    public void passToPersonTarget(Lead b)
     {
-        personB = b;
+        leadB = b;
         mouseLinked = false;    }
 
-    public bool contains(Person person)
+    public bool contains(Lead lead)
     {
-        return (personA == person || personB == person);
+        return (leadA == lead || leadB == lead);
     }
 
     // Update is called once per frame
     void Update()
-    {        if (personA != null && (personB != null || mouseLinked))
+    {        if (leadA != null && (leadB != null || mouseLinked))
         {
-            var placea = personA.transform.position;
+            var placea = leadA.transform.position;
             Vector3 placeb;
             if(!mouseLinked)
             {
-                 placeb = personB.transform.position;
+                 placeb = leadB.transform.position;
             }
             else
             {
