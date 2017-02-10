@@ -8,17 +8,6 @@ public class ProgressDaysPhase : MonoBehaviour, TurnPhase
     private Camera camera;
     private TurnMaster turnMaster;
 
-    // Use this for initialization
-    void Start()
-    {
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
     public void turnStart() {
         daysRemaining--;
         Debug.Log("Days remaining:" + daysRemaining);
