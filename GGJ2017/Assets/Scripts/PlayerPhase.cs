@@ -158,7 +158,7 @@ public class PlayerPhase : MonoBehaviour, TurnPhase
             }
 
             actionsLeft--;
-            Debug.Log(actionsLeft);
+            Debug.Log("Actions left " + actionsLeft);
             hobnobMode = false;
 
         }
@@ -186,7 +186,7 @@ public class PlayerPhase : MonoBehaviour, TurnPhase
                 rumorTarget = personality.gameObject;
                 rumorModePhase++;
                 actionsLeft--;
-                Debug.Log(actionsLeft);
+                Debug.Log("Actions left " + actionsLeft);
             }
         }
     }
